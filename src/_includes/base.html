@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ title }}</title>
+<meta name="description" content="{{ description }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<style>[data-reveal]{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}[data-reveal].revealed{opacity:1;transform:none}</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="/index.html" class="nav-logo">
+      <div class="nav-logo-mark"><span>I</span></div>
+      <div class="nav-logo-text"><span class="nav-logo-name">Infocus Group</span><span class="nav-logo-tag">EST. {{ site.founded }} · SYDNEY</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/capabilities.html" {% if activeNav == "capabilities" %}class="active"{% endif %}>Capabilities</a></li>
+      <li><a href="/data-integration.html" {% if activeNav == "data" %}class="active"{% endif %}>Data &amp; Integration</a></li>
+      <li><a href="/change-adoption.html" {% if activeNav == "change" %}class="active"{% endif %}>Change &amp; Adoption</a></li>
+      <li><a href="/case-studies.html" {% if activeNav == "cases" %}class="active"{% endif %}>Case Studies</a></li>
+      <li><a href="/sectors.html" {% if activeNav == "sectors" %}class="active"{% endif %}>Sectors</a></li>
+      <li><a href="/methodology.html" {% if activeNav == "method" %}class="active"{% endif %}>Methodology</a></li>
+      <li><a href="/about.html" {% if activeNav == "about" %}class="active"{% endif %}>About</a></li>
+      <li><a href="/contact.html" class="nav-cta">Start a conversation</a></li>
+    </ul>
+    <button class="nav-hamburger" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="nav-mobile" id="mobileMenu">
+    <a href="/capabilities.html" {% if activeNav == "capabilities" %}class="active"{% endif %}>Capabilities</a>
+    <a href="/data-integration.html" {% if activeNav == "data" %}class="active"{% endif %}>Data &amp; Integration</a>
+    <a href="/change-adoption.html" {% if activeNav == "change" %}class="active"{% endif %}>Change &amp; Adoption</a>
+    <a href="/case-studies.html" {% if activeNav == "cases" %}class="active"{% endif %}>Case Studies</a>
+    <a href="/sectors.html" {% if activeNav == "sectors" %}class="active"{% endif %}>Sectors</a>
+    <a href="/methodology.html" {% if activeNav == "method" %}class="active"{% endif %}>Methodology</a>
+    <a href="/about.html" {% if activeNav == "about" %}class="active"{% endif %}>About</a>
+    <a href="/contact.html" style="color:var(--teal);font-weight:600">Start a conversation</a>
+  </div>
+</nav>
+{{ content | safe }}
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo-name">{{ site.company_name }}</div>
+        <p class="footer-tagline">{{ site.tagline }}</p>
+        <address class="footer-address">{{ site.address_line1 }}<br>{{ site.address_line2 }}<br>{{ site.address_line3 }}<br>{{ site.address_city }}</address>
+      </div>
+      <div>
+        <div class="footer-col-title">Capabilities</div>
+        <ul class="footer-links">
+          <li><a href="/capabilities.html">Management Consulting</a></li>
+          <li><a href="/capabilities.html">Program Delivery</a></li>
+          <li><a href="/capabilities.html">Cyber Security</a></li>
+          <li><a href="/capabilities.html">Data, AI &amp; ML</a></li>
+          <li><a href="/capabilities.html">Integration &amp; Testing</a></li>
+          <li><a href="/capabilities.html">Talent Uplift</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Specialisms</div>
+        <ul class="footer-links">
+          <li><a href="/data-integration.html">Data &amp; Integration</a></li>
+          <li><a href="/change-adoption.html">Change &amp; Adoption</a></li>
+          <li><a href="/case-studies.html">Case Studies</a></li>
+          <li><a href="/sectors.html">Sectors</a></li>
+          <li><a href="/methodology.html">Methodology</a></li>
+          <li><a href="/about.html">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+          <li><a href="tel:{{ site.phone }}">{{ site.phone_display }}</a></li>
+          <li><a href="{{ site.linkedin_url }}" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://{{ site.website }}">{{ site.website }}</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2026 {{ site.company_name }}. All rights reserved.</span>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Accessibility Statement</a></div>
+    </div>
+  </div>
+</footer>
+<script src="/main.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", function(user) {
+      if (!user) { window.netlifyIdentity.on("login", function() { document.location.href = "/admin/"; }); }
+    });
+  }
+</script>
+</body>
+</html>

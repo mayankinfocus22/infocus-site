@@ -1,0 +1,86 @@
+backend:
+  name: git-gateway
+  branch: main
+
+publish_mode: simple
+
+media_folder: "src/images"
+public_folder: "/images"
+
+collections:
+  - name: "site_settings"
+    label: "Site Settings"
+    files:
+      - name: "global"
+        label: "Contact & Company Info"
+        file: "src/_data/site.json"
+        fields:
+          - { label: "Email Address", name: "email", widget: "string", hint: "Appears in footer, contact page, and nav CTA" }
+          - { label: "Phone Number", name: "phone", widget: "string", hint: "e.g. +61 451 519 020" }
+          - { label: "Phone Display", name: "phone_display", widget: "string", hint: "How the number appears on screen" }
+          - { label: "Address Line 1", name: "address_line1", widget: "string" }
+          - { label: "Address Line 2", name: "address_line2", widget: "string" }
+          - { label: "Address Line 3", name: "address_line3", widget: "string" }
+          - { label: "City / State", name: "address_city", widget: "string" }
+          - { label: "LinkedIn URL", name: "linkedin_url", widget: "string" }
+          - { label: "Website", name: "website", widget: "string" }
+          - label: "Homepage Hero"
+            name: "hero_group"
+            widget: "object"
+            collapsed: false
+            fields:
+              - { label: "Hero Heading", name: "hero_heading", widget: "string", hint: "The large headline on the homepage" }
+              - { label: "Hero Subtext", name: "hero_sub", widget: "text", hint: "The paragraph below the main headline" }
+          - label: "Company Stats"
+            name: "stats_group"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Combined Experience", name: "combined_experience", widget: "string", hint: "e.g. 100+" }
+              - { label: "Partner Count", name: "partners_count", widget: "string" }
+              - { label: "Countries", name: "partners_countries", widget: "string" }
+              - { label: "Awards Count", name: "awards_count", widget: "string" }
+              - { label: "Year Founded", name: "founded", widget: "string" }
+          - label: "About Page"
+            name: "about_group"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Paragraph 1", name: "about_para1", widget: "text" }
+              - { label: "Paragraph 2", name: "about_para2", widget: "text" }
+              - { label: "Paragraph 3", name: "about_para3", widget: "text" }
+              - { label: "Paragraph 4", name: "about_para4", widget: "text" }
+          - label: "CTA Section"
+            name: "cta_group"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "CTA Heading", name: "cta_heading", widget: "string" }
+              - { label: "CTA Body", name: "cta_body", widget: "text" }
+
+  - name: "case_studies"
+    label: "Case Studies"
+    files:
+      - name: "all_studies"
+        label: "All Case Studies"
+        file: "src/_data/case_studies.json"
+        fields:
+          - label: "Case Studies"
+            name: "root"
+            widget: "list"
+            label_singular: "Case Study"
+            fields:
+              - { label: "Sector Tag", name: "tag", widget: "string", hint: "e.g. Enterprise Tool Introduction · Government" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Accent Colour", name: "accent", widget: "select", options: ["teal", "navy"], default: "teal" }
+              - { label: "Client Context", name: "context", widget: "text" }
+              - { label: "The Challenge", name: "challenge", widget: "text" }
+              - { label: "Infocus Role", name: "role", widget: "text" }
+              - label: "Outcomes"
+                name: "outcomes"
+                widget: "list"
+                field: { label: "Outcome", name: "outcome", widget: "string" }
+              - label: "Capabilities Used"
+                name: "capabilities_used"
+                widget: "list"
+                field: { label: "Capability", name: "capability", widget: "string" }
