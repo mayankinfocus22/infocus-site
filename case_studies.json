@@ -1,0 +1,67 @@
+{
+  "studies": [
+    {
+      "tag": "Enterprise Tool Introduction & Adoption · Government & Public Sector",
+      "title": "Enterprise Platform Rollout Across Multiple Business Units",
+      "accent": "teal",
+      "context": "A large public sector organisation needed to introduce a new enterprise practice management platform across multiple business teams, managing readiness, training, integration, and operational adoption simultaneously — with significant process change and high user expectations.",
+      "challenge": "Platform implementation was technically on track, but business readiness, stakeholder alignment, and adoption planning had not kept pace. The risk of a low-adoption go-live was escalating as the delivery date approached.",
+      "role": "Infocus Group was engaged to provide business readiness leadership, stakeholder engagement, implementation planning coordination, integration oversight, training design, communications, and adoption tracking from mobilisation through to post-go-live sustainment.",
+      "outcomes": [
+        "Improved go-live readiness across all business teams",
+        "Structured adoption plan with clear ownership",
+        "Reduced implementation risk entering go-live",
+        "Better alignment between business and technology teams",
+        "Operating model and support structure established before cutover"
+      ],
+      "capabilities_used": [
+        "Change Management",
+        "Program Delivery",
+        "Stakeholder Engagement",
+        "Training & Enablement"
+      ]
+    },
+    {
+      "tag": "Data Platform Modernisation · Financial Services",
+      "title": "Data Foundations Redesign for Reporting and Analytics Confidence",
+      "accent": "navy",
+      "context": "A regulated financial services organisation needed stronger data foundations across reporting, analytics, data warehouse, and enterprise data services to support executive decision-making and regulatory obligations.",
+      "challenge": "Multiple legacy systems, inconsistent data quality, unclear ownership, and a fragmented reporting environment were creating significant risk and limiting the organisation's ability to trust or act on its own data.",
+      "role": "Current-state assessment, target-state architecture design, data governance framework, delivery roadmap, stakeholder alignment, and technical delivery support across the data warehouse and analytics environments.",
+      "outcomes": [
+        "Clearer data architecture with defined ownership across domains",
+        "Improved reporting confidence at executive level",
+        "Stronger data governance model and stewardship structure",
+        "Better analytics enablement for key business units",
+        "Foundations prepared for AI and ML workloads"
+      ],
+      "capabilities_used": [
+        "Data Strategy",
+        "Data Warehouse",
+        "Data Governance",
+        "Analytics"
+      ]
+    },
+    {
+      "tag": "SSO & API Integration · Telecommunications",
+      "title": "Secure Platform Connectivity Across Identity and Workflow Systems",
+      "accent": "teal",
+      "context": "A large enterprise needed to connect multiple platforms securely and reliably — including identity and access management, workflow systems, and data integrations — across a complex multi-vendor environment.",
+      "challenge": "Point-to-point integrations had created brittle, hard-to-maintain connections. SSO was inconsistently implemented across platforms. A new system introduction required all integration touchpoints to be rationalised and validated before go-live.",
+      "role": "Integration planning, API coordination, SSO architecture and readiness, testing strategy design, defect tracking, and go-live support across multiple integration workstreams in parallel.",
+      "outcomes": [
+        "Improved system interoperability across all key platforms",
+        "More secure and consistent access experience for end users",
+        "Reduced manual workarounds and reconciliation overhead",
+        "Stronger integration testing framework retained post-engagement",
+        "Smoother transition to live operations with fewer critical defects"
+      ],
+      "capabilities_used": [
+        "SSO & Identity",
+        "API Integration",
+        "Integration Testing",
+        "Program Delivery"
+      ]
+    }
+  ]
+}
