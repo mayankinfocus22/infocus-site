@@ -16,7 +16,7 @@ activeNav: "cases"
   </div>
 </section>
 
-{% for study in case_studies.studies %}
+{% for study in case_studies %}
 <section class="section {% if loop.index is odd %}section-paper{% else %}section-dark{% endif %}">
   <div class="container">
     <div class="section-header" data-reveal>
@@ -25,18 +25,18 @@ activeNav: "cases"
     </div>
     <div class="two-col-60" data-reveal>
       <div>
-        <div class="case-card" style="border-top-color:var(--{{ study.accent }}){% if loop.index is even %};background:var(--navy2){% endif %}">
-          <h2 class="case-title" style="font-size:clamp(20px,2.2vw,28px){% if loop.index is even %};color:var(--white){% endif %}">{{ study.title }}</h2>
+        <div class="case-card accent-{{ study.accent }}{% if loop.index is even %} even-card{% endif %}">
+          <h2 class="case-title" style="font-size:clamp(20px,2.2vw,28px)">{{ study.title }}</h2>
           <div class="case-label" style="margin-top:20px">Client Context</div>
-          <p class="case-text" {% if loop.index is even %}style="color:rgba(255,255,255,.55)"{% endif %}>{{ study.context }}</p>
+          <p class="case-text">{{ study.context }}</p>
           <div class="case-label">The Challenge</div>
-          <p class="case-text" {% if loop.index is even %}style="color:rgba(255,255,255,.55)"{% endif %}>{{ study.challenge }}</p>
+          <p class="case-text">{{ study.challenge }}</p>
           <div class="case-label">Infocus Role</div>
-          <p class="case-text" {% if loop.index is even %}style="color:rgba(255,255,255,.55)"{% endif %}>{{ study.role }}</p>
+          <p class="case-text">{{ study.role }}</p>
         </div>
       </div>
       <div>
-        <div style="background:{% if loop.index is odd %}var(--navy){% else %}rgba(255,255,255,.04){% endif %};padding:36px 32px;height:100%;border:1px solid rgba(255,255,255,.07)">
+        <div class="outcomes-box">
           <span class="eyebrow eyebrow-gold" style="margin-bottom:16px;display:block">Outcomes</span>
           <ul class="case-outcomes" style="border-top:none;padding-top:0">
             {% for outcome in study.outcomes %}

@@ -77,14 +77,14 @@ activeNav: ""
       <p class="section-sub section-sub-dark">Examples of how Infocus Group supports organisations through technology introduction, integration, change, and measurable adoption.</p>
     </div>
     <div class="six-grid" style="gap:12px" data-reveal>
-      {% for study in case_studies.studies %}
-      <div class="case-card" style="border-top-color:var(--{{ study.accent }})">
+      {% for study in case_studies %}
+      <div class="case-card accent-{{ study.accent }}">
         <span class="case-tag">{{ study.tag }}</span>
         <h3 class="case-title">{{ study.title }}</h3>
         <div class="case-label">Infocus Role</div>
         <p class="case-text">{{ study.role }}</p>
         <ul class="case-outcomes">
-          {% for outcome in study.outcomes | slice(3) %}
+          {% for outcome in study.outcomes.slice(0, 3) %}
           <li>{{ outcome }}</li>
           {% endfor %}
         </ul>

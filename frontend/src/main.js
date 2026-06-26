@@ -34,14 +34,49 @@
     document.querySelectorAll('[data-reveal]').forEach(function(el){ el.classList.add('revealed'); });
   }
 
-  // Netlify form enhancement — show thank you on submit
+  // Backend form submission
   const form = document.getElementById('contactForm');
   if(form){
     form.addEventListener('submit', function(e){
-      // Netlify handles submission; we just show a thank-you
-      // If not using Netlify, remove the setTimeout
+      e.preventDefault();
       const btn = form.querySelector('.form-submit');
       if(btn){ btn.textContent = 'Sending…'; btn.disabled = true; }
+
+      const payload = {
+        name: (form.querySelector('#fname').value + ' ' + form.querySelector('#lname').value).trim(),
+        email: form.querySelector('#email').value,
+        org: form.querySelector('#org').value,
+        role: form.querySelector('#role').value,
+        interest: form.querySelector('#sector').value,
+        message: form.querySelector('#message').value
+      };
+
+      fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(function(res){ return res.json(); })
+      .then(function(data){
+        if(data.success){
+          btn.textContent = 'Message Sent!';
+          btn.style.backgroundColor = '#167B7D';
+          alert(data.message || 'Thank you! Your submission was successful.');
+          form.reset();
+        } else {
+          btn.textContent = 'Error';
+          btn.disabled = false;
+          alert(data.error || 'Something went wrong. Please try again.');
+        }
+      })
+      .catch(function(err){
+        console.error('Error submitting form:', err);
+        btn.textContent = 'Send message';
+        btn.disabled = false;
+        alert('Could not reach the backend server. Please make sure the backend is running.');
+      });
     });
   }
 })();
