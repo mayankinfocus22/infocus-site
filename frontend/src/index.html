@@ -69,32 +69,6 @@ activeNav: ""
   </div>
 </section>
 
-<section class="section" style="background:var(--paper)">
-  <div class="container">
-    <div class="section-header" data-reveal>
-      <span class="eyebrow">FROM DELIVERY TO ADOPTION</span><span class="gold-rule"></span>
-      <h2 class="section-title section-title-dark">From new tools to sustained adoption.</h2>
-      <p class="section-sub section-sub-dark">Examples of how Infocus Group supports organisations through technology introduction, integration, change, and measurable adoption.</p>
-    </div>
-    <div class="six-grid" style="gap:12px" data-reveal>
-      {% for study in case_studies %}
-      <div class="case-card accent-{{ study.accent }}">
-        <span class="case-tag">{{ study.tag }}</span>
-        <h3 class="case-title">{{ study.title }}</h3>
-        <div class="case-label">Infocus Role</div>
-        <p class="case-text">{{ study.role }}</p>
-        <ul class="case-outcomes">
-          {% for outcome in study.outcomes.slice(0, 3) %}
-          <li>{{ outcome }}</li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% endfor %}
-    </div>
-    <div style="margin-top:32px;text-align:center"><a href="/case-studies.html" class="btn-outline-navy">View all case studies</a></div>
-  </div>
-</section>
-
 <section class="section section-dark">
   <div class="container">
     <div class="section-header" data-reveal>

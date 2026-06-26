@@ -13,20 +13,19 @@
     });
   }
 
-  // Dynamic glow coordinates tracking for Hero
-  const hero = document.querySelector('.hero');
-  if (hero) {
-    hero.addEventListener('mousemove', function(e) {
-      const rect = hero.getBoundingClientRect();
+  // Dynamic glow coordinates tracking for Hero, Page Hero & CTA Band
+  document.querySelectorAll('.hero, .page-hero, .cta-band').forEach(function(el) {
+    el.addEventListener('mousemove', function(e) {
+      const rect = el.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / rect.width) * 100;
       const y = ((e.clientY - rect.top) / rect.height) * 100;
-      hero.style.setProperty('--glow-x', `${x}%`);
-      hero.style.setProperty('--glow-y', `${y}%`);
+      el.style.setProperty('--glow-x', `${x}%`);
+      el.style.setProperty('--glow-y', `${y}%`);
     });
-  }
+  });
 
-  // Mouse move effect for capability & case cards
-  document.querySelectorAll('.cap-card, .case-card').forEach(function(card) {
+  // Mouse move effect for all card types
+  document.querySelectorAll('.cap-card, .cap-detail, .tile-card, .info-card, .sector-card, .why-card, .engage-card, .platform-card, .change-col, .contact-sidebar-dark, .contact-sidebar-light').forEach(function(card) {
     card.addEventListener('mousemove', function(e) {
       const rect = card.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / rect.width) * 100;
@@ -95,49 +94,53 @@
     document.querySelectorAll('[data-reveal]').forEach(function(el){ el.classList.add('revealed'); });
   }
 
-  // Backend form submission
+  // Direct mailto form submission
   const form = document.getElementById('contactForm');
   if(form){
     form.addEventListener('submit', function(e){
       e.preventDefault();
       const btn = form.querySelector('.form-submit');
-      if(btn){ btn.textContent = 'Sending…'; btn.disabled = true; }
+      if(btn){ btn.textContent = 'Opening Mail client…'; btn.disabled = true; }
 
-      const payload = {
-        name: (form.querySelector('#fname').value + ' ' + form.querySelector('#lname').value).trim(),
-        email: form.querySelector('#email').value,
-        org: form.querySelector('#org').value,
-        role: form.querySelector('#role').value,
-        interest: form.querySelector('#sector').value,
-        message: form.querySelector('#message').value
-      };
+      const name = (form.querySelector('#fname').value + ' ' + form.querySelector('#lname').value).trim();
+      const email = form.querySelector('#email').value;
+      const org = form.querySelector('#org').value;
+      const role = form.querySelector('#role').value;
+      const interest = form.querySelector('#sector').value;
+      const message = form.querySelector('#message').value;
 
-      fetch('http://localhost:5000/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      })
-      .then(function(res){ return res.json(); })
-      .then(function(data){
-        if(data.success){
-          btn.textContent = 'Message Sent!';
-          btn.style.backgroundColor = '#167B7D';
-          alert(data.message || 'Thank you! Your submission was successful.');
-          form.reset();
-        } else {
-          btn.textContent = 'Error';
-          btn.disabled = false;
-          alert(data.error || 'Something went wrong. Please try again.');
+      const mailtoEmail = 'sahil@infocusgroup.au';
+      const subject = `Infocus Group Inquiry from ${name} (${org})`;
+      const body = `Hi Infocus Group Team,\n\n` +
+                   `You have received a new contact inquiry with the following details:\n\n` +
+                   `Name: ${name}\n` +
+                   `Work Email: ${email}\n` +
+                   `Organisation: ${org}\n` +
+                   `Role: ${role}\n` +
+                   `Sector: ${interest || 'Not Specified'}\n\n` +
+                   `Message:\n${message}\n\n` +
+                   `Sent via Infocus Group website contact form.`;
+
+      const mailtoUrl = `mailto:${mailtoEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      
+      // Open email client
+      window.location.href = mailtoUrl;
+
+      // Reset button and form after short delay
+      setTimeout(function(){
+        if(btn){ 
+          btn.textContent = 'Email Client Opened'; 
+          btn.style.backgroundColor = '#167B7D'; 
         }
-      })
-      .catch(function(err){
-        console.error('Error submitting form:', err);
-        btn.textContent = 'Send message';
-        btn.disabled = false;
-        alert('Could not reach the backend server. Please make sure the backend is running.');
-      });
+        setTimeout(function(){
+          if(btn){
+            btn.textContent = 'Send message';
+            btn.disabled = false;
+            btn.style.backgroundColor = '';
+          }
+          form.reset();
+        }, 2000);
+      }, 1000);
     });
   }
 })();
