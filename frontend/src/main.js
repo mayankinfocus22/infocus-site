@@ -13,6 +13,41 @@
     });
   }
 
+  // Dynamic glow coordinates tracking for Hero
+  const hero = document.querySelector('.hero');
+  if (hero) {
+    hero.addEventListener('mousemove', function(e) {
+      const rect = hero.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      hero.style.setProperty('--glow-x', `${x}%`);
+      hero.style.setProperty('--glow-y', `${y}%`);
+    });
+  }
+
+  // Mouse move effect for capability & case cards
+  document.querySelectorAll('.cap-card, .case-card').forEach(function(card) {
+    card.addEventListener('mousemove', function(e) {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty('--mouse-x', `${x}%`);
+      card.style.setProperty('--mouse-y', `${y}%`);
+    });
+  });
+
+  // Nav scroll indicator class
+  const nav = document.querySelector('nav');
+  if (nav) {
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 20) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    }, { passive: true });
+  }
+
   // Accordion
   document.querySelectorAll('.accordion-trigger').forEach(function(trigger){
     trigger.addEventListener('click', function(){
@@ -21,15 +56,41 @@
     });
   });
 
-  // Scroll reveal — simple fade-up on section-header and key cards
+  // Scroll reveal — fade-up with staggered grid items
   if('IntersectionObserver' in window){
     const els = document.querySelectorAll('[data-reveal]');
     const obs = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){ e.target.classList.add('revealed'); obs.unobserve(e.target); }
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          const target = entry.target;
+          target.classList.add('revealed');
+          
+          // Stagger children transition delays inside grids
+          const children = target.children;
+          if (children && children.length > 1) {
+            Array.from(children).forEach(function(child, index) {
+              child.style.transition = 'opacity .75s cubic-bezier(0.25, 0.8, 0.25, 1), transform .75s cubic-bezier(0.25, 0.8, 0.25, 1)';
+              child.style.transitionDelay = `${index * 80}ms`;
+              child.style.opacity = '1';
+              child.style.transform = 'none';
+            });
+          }
+          obs.unobserve(target);
+        }
       });
-    },{threshold:0.12});
-    els.forEach(function(el){ obs.observe(el); });
+    },{threshold:0.1});
+    
+    // Setup initial state for container-level reveal targets with children
+    els.forEach(function(el){
+      obs.observe(el);
+      const children = el.children;
+      if (children && children.length > 1) {
+        Array.from(children).forEach(function(child) {
+          child.style.opacity = '0';
+          child.style.transform = 'translateY(24px)';
+        });
+      }
+    });
   } else {
     document.querySelectorAll('[data-reveal]').forEach(function(el){ el.classList.add('revealed'); });
   }
