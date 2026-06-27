@@ -1,99 +1,149 @@
-# Infocus Group — Corporate Web Portal & API
+# Infocus Group Website
 
-Welcome to the Infocus Group corporate web portal repository. The project is split into a static frontend built with **Eleventy (11ty)** and a lightweight **Node.js/Express.js** backend API.
+Corporate website for Infocus Group, an Australian technology consultancy focused on strategy, transformation, delivery, data, AI, integration, cyber security, and change adoption.
 
----
+The site is a static frontend built with Eleventy (11ty). It uses Nunjucks templates, shared JSON content, Netlify CMS configuration, and a lightweight JavaScript layer for navigation, reveal effects, and contact form behavior.
 
-## 📂 Project Structure
+## Site Pages
 
-```
+- Home
+- Capabilities
+- Data & Integration
+- Change & Adoption
+- Sectors
+- Methodology
+- About
+- Contact
+- 404
+
+## Project Structure
+
+```text
 infocus-site/
-├── frontend/             # Frontend application (Eleventy SSG)
-│   ├── src/              # Development source files (templates, assets)
-│   │   ├── _data/        # Nunjucks template data
-│   │   ├── _includes/    # Base layouts & components
-│   │   ├── admin/        # Netlify CMS page configuration
-│   │   └── ...           # Site pages (index, capabilities, contact)
-│   ├── .eleventy.js      # Eleventy compiler configuration
-│   └── package.json      # Frontend npm package settings
-│
-├── backend/              # Backend API service (Express)
-│   ├── data/             # Backend mock databases (case studies JSON)
-│   ├── server.js         # Express app entrypoint and API routes
-│   └── package.json      # Backend npm package settings
-│
-├── .gitignore            # Git exclusion rules
-├── package.json          # Workspace-level script orchestrator
-└── README.md             # Project documentation
+|-- frontend/
+|   |-- admin/              # Netlify CMS admin entry and config
+|   |-- src/
+|   |   |-- _data/          # Shared site data
+|   |   |-- _includes/      # Base layout
+|   |   |-- 404.html
+|   |   |-- about.html
+|   |   |-- capabilities.html
+|   |   |-- change-adoption.html
+|   |   |-- contact.html
+|   |   |-- data-integration.html
+|   |   |-- index.html
+|   |   |-- main.js
+|   |   |-- methodology.html
+|   |   |-- sectors.html
+|   |   `-- styles.css
+|   |-- .eleventy.js        # Eleventy configuration
+|   |-- netlify.toml        # Netlify publish settings
+|   |-- package-lock.json
+|   `-- package.json
+|-- package-lock.json
+|-- package.json            # Root convenience scripts
+`-- README.md
 ```
 
----
+## Requirements
 
-## ⚡ Quick Start
+- Node.js 16 or newer
+- npm
 
-### Prerequisites
-Make sure you have [Node.js](https://nodejs.org/) installed (version 16 or higher recommended).
+## Setup
 
-### 1. Install Dependencies
-You can install dependencies for both the frontend and backend simultaneously from the project root:
+Install dependencies from the repository root:
+
 ```bash
 npm run install:all
 ```
 
-### 2. Start Development Servers
-To start the Eleventy development server (which compiles the pages and runs on port `8082`) and the Express API server (which runs on port `5000`) concurrently, run:
+This installs the frontend dependencies under `frontend/`.
+
+## Development
+
+Start the local Eleventy development server:
+
 ```bash
 npm run dev
 ```
 
----
+The site will be available at:
 
-## 🛠️ CLI Reference
+```text
+http://localhost:8080/
+```
 
-All scripts should be executed from the `infocus-site/` root directory:
+Eleventy watches the frontend source files and rebuilds the static output into `frontend/_site`.
+
+## Build
+
+Create a production build:
+
+```bash
+npm run build --prefix frontend
+```
+
+The built files are generated in:
+
+```text
+frontend/_site/
+```
+
+## Scripts
+
+Run commands from the repository root unless noted otherwise.
 
 | Script | Description |
-| :--- | :--- |
-| `npm run dev` | Starts both frontend and backend concurrently in development mode. |
-| `npm run start:frontend` | Starts only the Eleventy development server (re-compiles on save). |
-| `npm run start:backend` | Starts only the Express API server. |
-| `npm run build` | Builds a production-ready static output inside `frontend/_site`. |
-| `npm run install:all` | Installs npm dependencies in both `frontend` and `backend` folders. |
+| --- | --- |
+| `npm run dev` | Starts the Eleventy dev server from `frontend/`. |
+| `npm start` | Same as `npm run dev`; starts the frontend site. |
+| `npm run install:all` | Installs frontend dependencies. |
+| `npm run build --prefix frontend` | Builds the static production site into `frontend/_site`. |
 
----
+## Content
 
-## 🔌 API Documentation (Backend)
+Shared company details, contact information, hero copy, metrics, and CTA copy live in:
 
-The backend runs on port `5000` by default and exposes the following endpoints:
+```text
+frontend/src/_data/site.json
+```
 
-### `GET /api/case-studies`
-Returns the array of active case studies utilized throughout the website.
+Page templates live directly in:
 
-- **URL:** `http://localhost:5000/api/case-studies`
-- **Method:** `GET`
-- **Response Format:** `JSON`
+```text
+frontend/src/
+```
 
-### `POST /api/contact`
-Receives contact form submissions from the portal's contact page.
+The global layout is:
 
-- **URL:** `http://localhost:5000/api/contact`
-- **Method:** `POST`
-- **Headers:** `Content-Type: application/json`
-- **Body Parameters:**
-  ```json
-  {
-    "name": "Full Name",
-    "email": "work-email@domain.com",
-    "org": "Organisation Name",
-    "role": "Role / Designation",
-    "interest": "Sector of interest",
-    "message": "Brief description of the challenge/enquiry"
-  }
-  ```
-- **Response:**
-  ```json
-  {
-    "success": true,
-    "message": "Thank you for your message! Our team will get back to you shortly."
-  }
-  ```
+```text
+frontend/src/_includes/base.html
+```
+
+## Styling and Interactions
+
+- Global styles: `frontend/src/styles.css`
+- Frontend JavaScript: `frontend/src/main.js`
+- Fonts: Google Fonts (`Playfair Display` and `Inter`)
+- Primary theme: dark navy, teal, gold, paper, and white
+
+## Deployment
+
+The site includes Netlify configuration:
+
+```text
+frontend/netlify.toml
+```
+
+The expected static publish output is:
+
+```text
+frontend/_site
+```
+
+## Notes
+
+- The current application is frontend-only.
+- There is no active backend API required to run the site.
+- Generated folders such as `node_modules/` and `frontend/_site/` should not be committed.
