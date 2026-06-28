@@ -20,29 +20,29 @@ The site is a static frontend built with Eleventy (11ty). It uses Nunjucks templ
 
 ```text
 infocus-site/
-|-- frontend/
-|   |-- admin/              # Netlify CMS admin entry and config
-|   |-- src/
-|   |   |-- _data/          # Shared site data
-|   |   |-- _includes/      # Base layout
-|   |   |-- 404.html
-|   |   |-- about.html
-|   |   |-- capabilities.html
-|   |   |-- change-adoption.html
-|   |   |-- contact.html
-|   |   |-- data-integration.html
-|   |   |-- index.html
-|   |   |-- main.js
-|   |   |-- methodology.html
-|   |   |-- sectors.html
-|   |   `-- styles.css
-|   |-- .eleventy.js        # Eleventy configuration
-|   |-- netlify.toml        # Netlify publish settings
-|   |-- package-lock.json
-|   `-- package.json
-|-- package-lock.json
-|-- package.json            # Root convenience scripts
-`-- README.md
+├── frontend/
+│   ├── admin/              # Netlify CMS admin entry and config
+│   ├── src/
+│   │   ├── _data/          # Shared site data
+│   │   ├── _includes/      # Base layout
+│   │   ├── 404.html
+│   │   ├── about.html
+│   │   ├── capabilities.html
+│   │   ├── change-adoption.html
+│   │   ├── contact.html
+│   │   ├── data-integration.html
+│   │   ├── index.html
+│   │   ├── main.js
+│   │   ├── methodology.html
+│   │   ├── sectors.html
+│   │   └── styles.css
+│   ├── .eleventy.js        # Eleventy configuration
+│   ├── netlify.toml        # Netlify publish settings
+│   ├── package-lock.json
+│   └── package.json
+├── package-lock.json
+├── package.json            # Root convenience scripts
+└── README.md
 ```
 
 ## Requirements
@@ -81,6 +81,12 @@ Eleventy watches the frontend source files and rebuilds the static output into `
 Create a production build:
 
 ```bash
+npm run build
+```
+
+Or from the frontend directory:
+
+```bash
 npm run build --prefix frontend
 ```
 
@@ -95,11 +101,10 @@ frontend/_site/
 Run commands from the repository root unless noted otherwise.
 
 | Script | Description |
-| --- | --- |
-| `npm run dev` | Starts the Eleventy dev server from `frontend/`. |
-| `npm start` | Same as `npm run dev`; starts the frontend site. |
+| :--- | :--- |
+| `npm run dev` / `npm start` | Starts the Eleventy dev server from `frontend/`. |
+| `npm run build` | Builds the static production site into `frontend/_site`. |
 | `npm run install:all` | Installs frontend dependencies. |
-| `npm run build --prefix frontend` | Builds the static production site into `frontend/_site`. |
 
 ## Content
 
@@ -141,6 +146,16 @@ The expected static publish output is:
 ```text
 frontend/_site
 ```
+
+## ✉️ Email & Contact Form Handling
+
+The portal handles contact form submissions and email links dynamically on the client side:
+
+- **Desktop Users:**
+  - Clicking any email link (`mailto:`) or submitting the Contact Form will open **Gmail Web Compose** in a new browser tab with the destination email (`sahil@infocusgroup.au`) and any relevant content pre-filled.
+  - This avoids invoking unwanted default desktop email clients (like Microsoft Outlook) which are often unconfigured.
+- **Mobile Users:**
+  - Standard native `mailto:` links are triggered on mobile devices, opening the native mail app (e.g., Apple Mail or default Gmail app) for a seamless mobile experience.
 
 ## Notes
 

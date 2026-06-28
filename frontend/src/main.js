@@ -121,10 +121,18 @@
                    `Message:\n${message}\n\n` +
                    `Sent via Infocus Group website contact form.`;
 
-      const mailtoUrl = `mailto:${mailtoEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      
-      // Open email client
-      window.location.href = mailtoUrl;
+      // Check if user is on mobile
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+      if (!isMobile) {
+        // Open Gmail Web Compose in a new tab for desktop users
+        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(mailtoEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.open(gmailUrl, '_blank');
+      } else {
+        // Fallback to default mailto for mobile users (so it opens their native mail app)
+        const mailtoUrl = `mailto:${mailtoEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = mailtoUrl;
+      }
 
       // Reset button and form after short delay
       setTimeout(function(){
@@ -141,6 +149,43 @@
           form.reset();
         }, 2000);
       }, 1000);
+    });
+  }
+
+  // Intercept all other mailto links on desktop to open in Gmail instead of Outlook
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  if (!isMobile) {
+    document.querySelectorAll('a[href^="mailto:"]').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const href = this.getAttribute('href');
+        
+        let email = '';
+        let subject = '';
+        let body = '';
+        
+        try {
+          const urlStr = href.replace(/^mailto:/i, 'http://temp.com/');
+          const url = new URL(urlStr);
+          email = url.pathname.substring(1);
+          subject = url.searchParams.get('subject') || '';
+          body = url.searchParams.get('body') || '';
+        } catch (err) {
+          const parts = href.replace(/^mailto:/i, '').split('?');
+          email = parts[0];
+          if (parts[1]) {
+            const params = new URLSearchParams(parts[1]);
+            subject = params.get('subject') || '';
+            body = params.get('body') || '';
+          }
+        }
+        
+        let gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}`;
+        if (subject) gmailUrl += `&su=${encodeURIComponent(subject)}`;
+        if (body) gmailUrl += `&body=${encodeURIComponent(body)}`;
+        
+        window.open(gmailUrl, '_blank');
+      });
     });
   }
 })();
